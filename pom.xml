@@ -105,7 +105,10 @@
         </dependency><dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-        </dependency></dependencies>
+        </dependency><dependency>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-core</artifactId>
+  </dependency></dependencies>
 
 	<build>
 		<plugins>
@@ -164,7 +167,14 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.5.5</version>
-            </plugin></plugins>
+            </plugin><plugin>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <version>4.3.5</version>
+      <configuration>
+        <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
+      </configuration>
+    </plugin></plugins>
 	</build>
 
 </project>
