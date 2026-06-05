@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,5 +26,12 @@ public class UserController {
     public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody UserRegistrationRequest request) {
         UserResponse response = userService.registerUser(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getUserList/html")
+    public String getUserListHtml(Model model) {
+        List<UserResponse> users = userService.getAllUsers(); // Assuming this method exists
+        model.addAttribute("users", users);
+        return "userList";
     }
 }
