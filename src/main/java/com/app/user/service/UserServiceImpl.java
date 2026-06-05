@@ -7,6 +7,9 @@ import com.app.user.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -41,5 +44,18 @@ public class UserServiceImpl implements UserService {
         response.setPhoneNumber(user.getPhoneNumber());
         
         return response;
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() { // New method implemented
+        return userRepository.findAll().stream().map(user -> {
+            UserResponse response = new UserResponse();
+            response.setId(user.getId());
+            response.setFirstName(user.getFirstName());
+            response.setLastName(user.getLastName());
+            response.setEmail(user.getEmail());
+            response.setPhoneNumber(user.getPhoneNumber());
+            return response;
+        }).collect(Collectors.toList());
     }
 }
